@@ -10,9 +10,7 @@ h1 {
 #turn-board {
   opacity: 1;
 }
-#won {
-  font-size: 150px;
-}
+
 .square {
   text-align: center;
   font-size: 50px;

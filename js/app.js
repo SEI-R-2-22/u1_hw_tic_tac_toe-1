@@ -4,6 +4,9 @@ const squares = document.querySelectorAll('.square')
 let turnDisplay = document.getElementById('turn')
 let playerTurn = 1
 let winState = 0
+let replayBtn = document.createElement('button')
+replayBtn.innerHTML = 'Play Again?'
+
 ////////////////////////////////
 // Functions For Game Logic Here
 const scoreBoardDisplayer = () => {
@@ -23,10 +26,12 @@ const youWin = () => {
   } else if (playerTurn === 1) {
     document.getElementById('winner').innerHTML = '0 Wins!'
   }
+  document.body.appendChild(replayBtn)
 }
 const youTie = () => {
   document.getElementById('turn-board').style.opacity = '0'
   document.querySelector('h1').innerHTML = 'Draw!'
+  document.body.appendChild(replayBtn)
 }
 
 const checkForWin = () => {
@@ -108,10 +113,27 @@ for (let i = 0; i < squares.length; i++) {
       squares[i].innerHTML = '0'
       playerTurn++
     }
+    console.log(`win state is ${winState}`)
     console.log(playerTurn)
     checkForWin()
     scoreBoardDisplayer()
   })
 }
 
+replayBtn.addEventListener('click', () => {
+  squares[0].innerHTML = ''
+  squares[1].innerHTML = ''
+  squares[2].innerHTML = ''
+  squares[3].innerHTML = ''
+  squares[4].innerHTML = ''
+  squares[5].innerHTML = ''
+  squares[6].innerHTML = ''
+  squares[7].innerHTML = ''
+  squares[8].innerHTML = ''
+  document.querySelector('h1').innerHTML = ''
+  document.getElementById('turn-board').style.opacity = '1'
+  document.getElementById('winner').innerHTML = ''
+  winState = 0
+  replayBtn.remove()
+})
 ////////////////////////////////
