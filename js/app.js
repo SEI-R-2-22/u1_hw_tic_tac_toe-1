@@ -1,13 +1,32 @@
 // Global Variables Here
 let board = document.querySelector('.game-board')
 const squares = document.querySelectorAll('.square')
+let turnDisplay = document.getElementById('turn')
 let playerTurn = 1
 let winState = 0
 ////////////////////////////////
 // Functions For Game Logic Here
+const scoreBoardDisplayer = () => {
+  if (playerTurn === 1) {
+    turnDisplay.innerHTML = 'X'
+  } else if (playerTurn === 0) {
+    turnDisplay.innerHTML = '0'
+  }
+}
+
 const youWin = () => {
-  document.querySelector('h1').style.opacity = '1'
+  document.querySelector('h1').innerHTML = 'Game!'
+  document.getElementById('turn-board').style.opacity = '0'
   winState++
+  if (playerTurn === 0) {
+    document.getElementById('winner').innerHTML = 'X Wins!'
+  } else if (playerTurn === 1) {
+    document.getElementById('winner').innerHTML = '0 Wins!'
+  }
+}
+const youTie = () => {
+  document.getElementById('turn-board').style.opacity = '0'
+  document.querySelector('h1').innerHTML = 'Draw!'
 }
 
 const checkForWin = () => {
@@ -59,6 +78,18 @@ const checkForWin = () => {
     squares[5].innerHTML !== '' // top right to bottom right
   ) {
     youWin()
+  } else if (
+    squares[0].innerHTML !== '' &&
+    squares[1].innerHTML !== '' &&
+    squares[2].innerHTML !== '' &&
+    squares[3].innerHTML !== '' &&
+    squares[4].innerHTML !== '' &&
+    squares[5].innerHTML !== '' &&
+    squares[6].innerHTML !== '' &&
+    squares[7].innerHTML !== '' &&
+    squares[8].innerHTML !== ''
+  ) {
+    youTie()
   }
 }
 ////////////////////////////////
@@ -66,17 +97,21 @@ const checkForWin = () => {
 
 for (let i = 0; i < squares.length; i++) {
   squares[i].addEventListener('click', () => {
-    if (playerTurn === 1 && squares[i].innerHTML === '') {
+    if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
       squares[i].innerHTML = 'X'
       playerTurn--
-    } else if (playerTurn === 0 && squares[i].innerHTML === '') {
+    } else if (
+      playerTurn === 0 &&
+      squares[i].innerHTML === '' &&
+      winState === 0
+    ) {
       squares[i].innerHTML = '0'
       playerTurn++
     }
+    console.log(playerTurn)
     checkForWin()
-    if (winState === 1) {
-      squares[i].removeEventListener('click')
-    }
+    scoreBoardDisplayer()
   })
 }
+
 ////////////////////////////////

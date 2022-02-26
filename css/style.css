@@ -5,7 +5,13 @@
   grid-template-columns: 20vmin 20vmin 20vmin;
 }
 h1 {
-  opacity: 0;
+  opacity: 1;
+}
+#turn-board {
+  opacity: 1;
+}
+#won {
+  font-size: 150px;
 }
 .square {
   text-align: center;
