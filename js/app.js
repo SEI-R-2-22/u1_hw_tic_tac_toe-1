@@ -5,6 +5,8 @@ let turnDisplay = document.getElementById('turn')
 let playerTurn = 1
 let winState = 0
 let replayBtn = document.createElement('button')
+xWins = 0
+oWins = 0
 replayBtn.innerHTML = 'Play Again?'
 
 ////////////////////////////////
@@ -20,14 +22,25 @@ const scoreBoardDisplayer = () => {
 const youWin = () => {
   document.querySelector('h1').innerHTML = 'Game!'
   document.getElementById('turn-board').style.opacity = '0'
-  winState++
+  winState = 1
   if (playerTurn === 0) {
     document.getElementById('winner').innerHTML = 'X Wins!'
+    tallyIncrementor()
   } else if (playerTurn === 1) {
     document.getElementById('winner').innerHTML = '0 Wins!'
+    tallyIncrementor()
   }
   document.body.appendChild(replayBtn)
 }
+
+const tallyIncrementor = () => {
+  if (playerTurn === 0 && winState === 1) {
+    xWins++
+  } else if (playerTurn === 1 && winState === 1) {
+    oWins++
+  }
+}
+
 const youTie = () => {
   document.getElementById('turn-board').style.opacity = '0'
   document.querySelector('h1').innerHTML = 'Draw!'
@@ -113,10 +126,14 @@ for (let i = 0; i < squares.length; i++) {
       squares[i].innerHTML = '0'
       playerTurn++
     }
-    console.log(`win state is ${winState}`)
-    console.log(playerTurn)
-    checkForWin()
+    if (winState === 0) {
+      checkForWin()
+    }
     scoreBoardDisplayer()
+    console.log(`win state is ${winState}`)
+    console.log(`player turn is ${playerTurn}`)
+    console.log(`X won ${xWins} times`)
+    console.log(`0 won ${oWins} times`)
   })
 }
 
