@@ -27,7 +27,7 @@ const youWin = () => {
     document.getElementById('winner').innerHTML = 'X Wins!'
     tallyIncrementor()
   } else if (playerTurn === 1) {
-    document.getElementById('winner').innerHTML = '0 Wins!'
+    document.getElementById('winner').innerHTML = 'O Wins!'
     tallyIncrementor()
   }
   document.body.appendChild(replayBtn)
@@ -36,8 +36,10 @@ const youWin = () => {
 const tallyIncrementor = () => {
   if (playerTurn === 0 && winState === 1) {
     xWins++
+    document.getElementById('x-win-count').innerHTML = xWins
   } else if (playerTurn === 1 && winState === 1) {
     oWins++
+    document.getElementById('o-win-count').innerHTML = oWins
   }
 }
 
@@ -123,7 +125,7 @@ for (let i = 0; i < squares.length; i++) {
       squares[i].innerHTML === '' &&
       winState === 0
     ) {
-      squares[i].innerHTML = '0'
+      squares[i].innerHTML = 'O'
       playerTurn++
     }
     if (winState === 0) {
