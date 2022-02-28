@@ -131,37 +131,20 @@ const computerTurn = () => {
 ////////////////////////////////
 // Event Listeners Here
 
-// for (let i = 0; i < squares.length; i++) {
-//   squares[i].addEventListener('click', () => {
-//     if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
-//       squares[i].innerHTML = 'X'
-//       playerTurn--
-//     } else if (
-//       playerTurn === 0 &&
-//       squares[i].innerHTML === '' &&
-//       winState === 0
-//     ) {
-//       squares[i].innerHTML = 'O'
-//       playerTurn++
-//     }
-//     if (winState === 0) {
-//       checkForWin()
-//     }
-//     scoreBoardDisplayer()
-//     console.log(`win state is ${winState}`)
-//     console.log(`player turn is ${playerTurn}`)
-//     console.log(`X won ${xWins} times`)
-//     console.log(`0 won ${oWins} times`)
-//   })
-// }
-
 for (let i = 0; i < squares.length; i++) {
   squares[i].addEventListener('click', () => {
     if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
       squares[i].innerHTML = 'X'
       checkForWin()
-
-      computerTurn()
+      playerTurn = 0
+    } else if (
+      playerTurn === 0 &&
+      squares[i].innerHTML === '' &&
+      winState === 0
+    ) {
+      squares[i].innerHTML = 'O'
+      checkForWin()
+      playerTurn = 1
     }
     if (winState === 0) {
       checkForWin()
@@ -173,6 +156,25 @@ for (let i = 0; i < squares.length; i++) {
     console.log(`0 won ${oWins} times`)
   })
 }
+
+// for (let i = 0; i < squares.length; i++) {
+//   squares[i].addEventListener('click', () => {
+//     if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
+//       squares[i].innerHTML = 'X'
+//       checkForWin()
+
+//       computerTurn()
+//     }
+//     if (winState === 0) {
+//       checkForWin()
+//     }
+//     scoreBoardDisplayer()
+//     console.log(`win state is ${winState}`)
+//     console.log(`player turn is ${playerTurn}`)
+//     console.log(`X won ${xWins} times`)
+//     console.log(`0 won ${oWins} times`)
+//   })
+// }
 
 replayBtn.addEventListener('click', () => {
   squares[0].innerHTML = ''
