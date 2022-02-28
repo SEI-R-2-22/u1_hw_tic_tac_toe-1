@@ -6,6 +6,13 @@ let playerTurn = 1
 let computerPick
 let winState = 0
 let replayBtn = document.createElement('button')
+let onePlayerButton = document.getElementById('one-player')
+let twoPlayerButton = document.getElementById('two-player')
+let buttonContainer = document.getElementById('buttonspot')
+let timer = 10
+let playInterval
+
+let countdown = document.getElementById('countdown')
 xWins = 0
 oWins = 0
 draws = 0
@@ -17,7 +24,7 @@ const scoreBoardDisplayer = () => {
   if (playerTurn === 1) {
     turnDisplay.innerHTML = 'X'
   } else if (playerTurn === 0) {
-    turnDisplay.innerHTML = '0'
+    turnDisplay.innerHTML = 'O'
   }
 }
 
@@ -33,7 +40,7 @@ const youWin = () => {
     playerTurn = 0
     tallyIncrementor()
   }
-  document.body.appendChild(replayBtn)
+  buttonContainer.appendChild(replayBtn)
 }
 
 const tallyIncrementor = () => {
@@ -120,62 +127,82 @@ const checkForWin = () => {
 }
 
 const computerTurn = () => {
+  playerTurn = 0
+  scoreBoardDisplayer()
   computerPick = Math.floor(Math.random() * 8)
-  if (squares[computerPick].innerHTML === '' && winState === 0) {
-    playerTurn--
-    squares[computerPick].innerHTML = 'O'
+  if (
+    playerTurn === 0 &&
+    squares[computerPick].innerHTML === '' &&
+    winState === 0
+  ) {
+    let timeOut = setTimeout(() => {
+      squares[computerPick].innerHTML = 'O'
+      playerTurn = 1
+      scoreBoardDisplayer()
+    }, 2000)
     checkForWin()
-    playerTurn++
+
     console.log(`computer chose square ${computerPick}`)
   } else if (squares[computerPick].innerHTML != '' && winState === 0) {
     computerTurn()
   }
 }
+const decreaseTimer = () => {
+  if (timer > 0) {
+    timer--
+    countdown.innerHTML = timer
+    console.log(timer)
+  }
+}
 
 ////////////////////////////////
 // Event Listeners Here
+const playTwoPlayer = () => {
+  onePlayerButton.remove()
+  twoPlayerButton.remove()
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener('click', () => {
+      if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
+        squares[i].innerHTML = 'X'
 
-for (let i = 0; i < squares.length; i++) {
-  squares[i].addEventListener('click', () => {
-    if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
-      squares[i].innerHTML = 'X'
-      checkForWin()
-      playerTurn = 0
-    } else if (
-      playerTurn === 0 &&
-      squares[i].innerHTML === '' &&
-      winState === 0
-    ) {
-      squares[i].innerHTML = 'O'
-      checkForWin()
-      playerTurn = 1
-    }
-    scoreBoardDisplayer()
-    console.log(`win state is ${winState}`)
-    console.log(`player turn is ${playerTurn}`)
-    console.log(`X won ${xWins} times`)
-    console.log(`0 won ${oWins} times`)
-  })
+        checkForWin()
+        playerTurn = 0
+      } else if (
+        playerTurn === 0 &&
+        squares[i].innerHTML === '' &&
+        winState === 0
+      ) {
+        squares[i].innerHTML = 'O'
+        checkForWin()
+        playerTurn = 1
+      }
+      scoreBoardDisplayer()
+      console.log(`win state is ${winState}`)
+      console.log(`player turn is ${playerTurn}`)
+      console.log(`X won ${xWins} times`)
+      console.log(`0 won ${oWins} times`)
+    })
+  }
 }
+const playOnePlayer = () => {
+  onePlayerButton.remove()
+  twoPlayerButton.remove()
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener('click', () => {
+      if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
+        squares[i].innerHTML = 'X'
+        checkForWin()
 
-// for (let i = 0; i < squares.length; i++) {
-//   squares[i].addEventListener('click', () => {
-//     if (playerTurn === 1 && squares[i].innerHTML === '' && winState === 0) {
-//       squares[i].innerHTML = 'X'
-//       checkForWin()
-
-//       computerTurn()
-//     }
-//     if (winState === 0) {
-//       checkForWin()
-//     }
-//     scoreBoardDisplayer()
-//     console.log(`win state is ${winState}`)
-//     console.log(`player turn is ${playerTurn}`)
-//     console.log(`X won ${xWins} times`)
-//     console.log(`0 won ${oWins} times`)
-//   })
-// }
+        computerTurn()
+      }
+      scoreBoardDisplayer()
+      console.log(`win state is ${winState}`)
+      console.log(`player turn is ${playerTurn}`)
+      console.log(`X won ${xWins} times`)
+      console.log(`0 won ${oWins} times`)
+    })
+  }
+}
 
 replayBtn.addEventListener('click', () => {
   squares[0].innerHTML = ''
@@ -190,8 +217,13 @@ replayBtn.addEventListener('click', () => {
   document.querySelector('h1').innerHTML = ''
   document.getElementById('turn-board').style.opacity = '1'
   document.getElementById('winner').innerHTML = ''
+  turnDisplay.innerHTML = ''
   playerTurn = 1
   winState = 0
+
   replayBtn.remove()
 })
+
+onePlayerButton.addEventListener('click', playOnePlayer)
+twoPlayerButton.addEventListener('click', playTwoPlayer)
 ////////////////////////////////

@@ -2,18 +2,38 @@
 body {
   font-family: 'Orbitron', sans-serif;
 }
+#flexbox {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  gap: 5%;
+}
 #left {
+  order: 1;
+}
+
+#winboard {
   order: 3;
 }
-#winboard {
-  align-self: flex-start;
-  order: -1;
-}
 #buttonspot {
-  background-color: red;
-  width: 100px;
+  display: flex;
+  width: 100vw;
   height: 100px;
-  order: -4;
+  justify-content: right;
+}
+button {
+  background-color: white;
+  border: 1px black;
+  color: black;
+  padding: 15px 52px;
+  text-align: center;
+  margin-right: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+}
+button:hover {
+  background-color: black;
+  color: white;
 }
 .game-board {
   display: grid;
@@ -37,6 +57,7 @@ h1 {
 #s4 {
   border: solid 5px;
 }
+
 #s3 {
   border-top: solid 5px;
   border-bottom: solid 5px;
