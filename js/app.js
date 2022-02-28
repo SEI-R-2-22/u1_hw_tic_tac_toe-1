@@ -8,6 +8,7 @@ let winState = 0
 let replayBtn = document.createElement('button')
 xWins = 0
 oWins = 0
+draws = 0
 replayBtn.innerHTML = 'Play Again?'
 
 ////////////////////////////////
@@ -48,6 +49,8 @@ const tallyIncrementor = () => {
 const youTie = () => {
   document.getElementById('turn-board').style.opacity = '0'
   document.querySelector('h1').innerHTML = 'Draw!'
+  draws++
+  document.getElementById('draw-count').innerHTML = draws
   document.body.appendChild(replayBtn)
   winState++
 }
@@ -115,11 +118,12 @@ const checkForWin = () => {
     youTie()
   }
 }
+
 const computerTurn = () => {
   computerPick = Math.floor(Math.random() * 8)
   if (squares[computerPick].innerHTML === '' && winState === 0) {
     playerTurn--
-    squares[computerPick].innerHTML = '0'
+    squares[computerPick].innerHTML = 'O'
     checkForWin()
     playerTurn++
     console.log(`computer chose square ${computerPick}`)
@@ -145,9 +149,6 @@ for (let i = 0; i < squares.length; i++) {
       squares[i].innerHTML = 'O'
       checkForWin()
       playerTurn = 1
-    }
-    if (winState === 0) {
-      checkForWin()
     }
     scoreBoardDisplayer()
     console.log(`win state is ${winState}`)
