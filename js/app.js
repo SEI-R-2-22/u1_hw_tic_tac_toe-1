@@ -134,6 +134,7 @@ const computerTurn = () => {
   ) {
     let timeOut = setTimeout(() => {
       squares[computerPick].innerHTML = 'O'
+      checkForWin()
       playerTurn = 1
       scoreBoardDisplayer()
     }, 2000)
