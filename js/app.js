@@ -9,9 +9,6 @@ let replayBtn = document.createElement('button')
 let onePlayerButton = document.getElementById('one-player')
 let twoPlayerButton = document.getElementById('two-player')
 let buttonContainer = document.getElementById('buttonspot')
-let timer = 10
-let playInterval
-
 let countdown = document.getElementById('countdown')
 xWins = 0
 oWins = 0
@@ -145,13 +142,6 @@ const computerTurn = () => {
     console.log(`computer chose square ${computerPick}`)
   } else if (squares[computerPick].innerHTML != '' && winState === 0) {
     computerTurn()
-  }
-}
-const decreaseTimer = () => {
-  if (timer > 0) {
-    timer--
-    countdown.innerHTML = timer
-    console.log(timer)
   }
 }
 
